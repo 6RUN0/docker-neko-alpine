@@ -1,0 +1,61 @@
+#!/command/execlineb -P
+
+importas -u -S -D neko X_NEKO_USER
+importas -u -S -D ${X_NEKO_USER} X_NEKO_GROUP
+importas -u -S -D 10000 X_NEKO_UID
+importas -u -S -D ${X_NEKO_UID} X_NEKO_GID
+importas -u -S -D /home/${X_NEKO_USER} X_NEKO_USER_HOME
+importas -u -S -D :99 X_NEKO_DISPLAY
+importas -u -S -D /tmp/runtime-${X_NEKO_USER} X_NEKO_RUNTIME_DIR
+
+foreground {
+  ifelse { getent group ${X_NEKO_GID} } { true }
+  addgroup -g ${X_NEKO_GID} ${X_NEKO_GROUP}
+}
+
+foreground {
+  ifelse { getent passwd ${X_NEKO_USER} } { true }
+  adduser -D -u ${X_NEKO_UID} -G ${X_NEKO_GROUP} -h ${X_NEKO_USER_HOME} ${X_NEKO_USER}
+}
+
+foreground { adduser ${X_NEKO_USER} audio }
+foreground { adduser ${X_NEKO_USER} video }
+foreground { adduser ${X_NEKO_USER} pulse }
+
+foreground { mkdir -p ${X_NEKO_RUNTIME_DIR} }
+foreground { chown -R ${X_NEKO_USER}:${X_NEKO_GROUP} ${X_NEKO_RUNTIME_DIR} }
+
+foreground {
+  redirfd -w 1 /run/s6/container_environment/X_NEKO_USER
+  echo -n ${X_NEKO_USER}
+}
+
+foreground {
+  redirfd -w 1 /run/s6/container_environment/X_NEKO_GROUP
+  echo -n ${X_NEKO_GROUP}
+}
+
+foreground {
+  redirfd -w 1 /run/s6/container_environment/X_NEKO_UID
+  echo -n ${X_NEKO_UID}
+}
+
+foreground {
+  redirfd -w 1 /run/s6/container_environment/X_NEKO_GID
+  echo -n ${X_NEKO_GID}
+}
+
+foreground {
+  redirfd -w 1 /run/s6/container_environment/X_NEKO_USER_HOME
+  echo -n ${X_NEKO_USER_HOME}
+}
+
+foreground {
+  redirfd -w 1 /run/s6/container_environment/X_NEKO_DISPLAY
+  echo -n ${X_NEKO_DISPLAY}
+}
+
+foreground {
+  redirfd -w 1 /run/s6/container_environment/X_NEKO_RUNTIME_DIR
+  echo -n ${X_NEKO_RUNTIME_DIR}
+}

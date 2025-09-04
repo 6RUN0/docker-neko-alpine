@@ -1,0 +1,20 @@
+#!/command/execlineb -P
+
+with-contenv
+
+define SOCKET_DIR /tmp/.X11-unix
+define CONFIG /etc/X11/xorg.conf
+
+importas -i -S X_NEKO_DISPLAY
+importas -i -S X_NEKO_USER
+importas -i -S X_NEKO_USER_HOME
+
+foreground { mkdir -p -m 1777 ${SOCKET_DIR} }
+
+export USER ${X_NEKO_USER}
+export HOME ${X_NEKO_USER_HOME}
+export DISPLAY ${X_NEKO_DISPLAY}
+
+s6-setuidgid ${X_NEKO_USER}
+
+exec /usr/libexec/Xorg ${X_NEKO_DISPLAY} -config ${CONFIG} -noreset -nolisten tcp

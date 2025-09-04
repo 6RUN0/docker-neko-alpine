@@ -1,0 +1,19 @@
+#!/command/execlineb -P
+
+with-contenv
+
+importas -i -S X_NEKO_DISPLAY
+importas -i -S X_NEKO_USER
+importas -i -S X_NEKO_USER_HOME
+importas -i -S X_NEKO_RUNTIME_DIR
+
+foreground { mkdir -p -m 1777 ${SOCKET_DIR} }
+
+export USER ${X_NEKO_USER}
+export HOME ${X_NEKO_USER_HOME}
+export DISPLAY ${X_NEKO_DISPLAY}
+export XDG_RUNTIME_DIR ${X_NEKO_RUNTIME_DIR}
+
+s6-setuidgid ${X_NEKO_USER}
+
+exec /usr/bin/pulseaudio --log-level=error --disallow-module-loading --disallow-exit --exit-idle-time=-1

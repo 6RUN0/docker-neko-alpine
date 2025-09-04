@@ -1,0 +1,12 @@
+#!/command/execlineb -P
+
+define RUNDIR /run/dbus
+define USER root
+define GROUP messagebus
+define MACHINE_ID /etc/machine-id
+
+foreground { mkdir -p -m 755 ${RUNDIR} }
+foreground { chown ${USER}:${GROUP} ${RUNDIR} }
+foreground { /usr/bin/dbus-uuidgen --ensure=${MACHINE_ID} }
+
+exec /usr/bin/dbus-daemon --system --nofork --nopidfile

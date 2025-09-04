@@ -1,0 +1,5 @@
+#!/command/execlineb -P
+
+define SYSTEM_BUS_SOCKET /run/dbus/system_bus_socket
+
+if { test -S ${SYSTEM_BUS_SOCKET} } rm -f ${SYSTEM_BUS_SOCKET}

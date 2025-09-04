@@ -1,0 +1,8 @@
+#!/bin/sh
+
+exec /usr/bin/dbus-send \
+  --print-reply \
+  --system \
+  --type=method_call \
+  --dest=org.freedesktop.DBus \
+  / org.freedesktop.DBus.ReloadConfig >/dev/null

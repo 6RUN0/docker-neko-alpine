@@ -1,0 +1,5 @@
+#!/command/execlineb -P
+
+define SOCKET_DIR /tmp/.X11-unix
+
+if { test -d ${SOCKET_DIR} } rm -rf ${SOCKET_DIR}
