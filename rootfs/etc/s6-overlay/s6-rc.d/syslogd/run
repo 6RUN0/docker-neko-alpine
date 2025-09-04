@@ -1,0 +1,3 @@
+#!/command/execlineb -P
+
+exec syslogd -n -t -O -

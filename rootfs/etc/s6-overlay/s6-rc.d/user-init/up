@@ -7,6 +7,7 @@ importas -u -S -D ${X_NEKO_UID} X_NEKO_GID
 importas -u -S -D /home/${X_NEKO_USER} X_NEKO_USER_HOME
 importas -u -S -D :99 X_NEKO_DISPLAY
 importas -u -S -D /tmp/runtime-${X_NEKO_USER} X_NEKO_RUNTIME_DIR
+importas -u -S -D /bin/bash X_NEKO_USER_SHELL
 
 foreground {
   ifelse { getent group ${X_NEKO_GID} } { true }
@@ -15,12 +16,13 @@ foreground {
 
 foreground {
   ifelse { getent passwd ${X_NEKO_USER} } { true }
-  adduser -D -u ${X_NEKO_UID} -G ${X_NEKO_GROUP} -h ${X_NEKO_USER_HOME} ${X_NEKO_USER}
+  adduser -D -u ${X_NEKO_UID} -G ${X_NEKO_GROUP} -h ${X_NEKO_USER_HOME} -s ${SHELL} ${X_NEKO_USER}
 }
 
 foreground { adduser ${X_NEKO_USER} audio }
 foreground { adduser ${X_NEKO_USER} video }
 foreground { adduser ${X_NEKO_USER} pulse }
+foreground { find ${X_NEKO_USER_HOME} \! -user ${X_NEKO_USER} -exec chown ${X_NEKO_USER}:${X_NEKO_GROUP} {} + }
 
 foreground { mkdir -p ${X_NEKO_RUNTIME_DIR} }
 foreground { chown -R ${X_NEKO_USER}:${X_NEKO_GROUP} ${X_NEKO_RUNTIME_DIR} }
@@ -58,4 +60,9 @@ foreground {
 foreground {
   redirfd -w 1 /run/s6/container_environment/X_NEKO_RUNTIME_DIR
   echo -n ${X_NEKO_RUNTIME_DIR}
+}
+
+foreground {
+  redirfd -w 1 /run/s6/container_environment/X_NEKO_USER_SHELL
+  echo -n ${X_NEKO_USER_SHELL}
 }

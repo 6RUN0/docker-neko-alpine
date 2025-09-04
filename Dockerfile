@@ -154,16 +154,17 @@ RUN \
   rm -rf "$S6_TEMP_DIR"; \
   apk del --purge --no-network .s6-overlay-dependencies; \
   # Install main dependencies
-  echo "http://dl-cdn.alpinelinux.org/alpine/v$(cut -d'.' -f1,2 /etc/alpine-release)/community" >> "/etc/apk/repositories"; \
   apk add --upgrade --no-cache --virtual .runtime-dependencies \
+  bash \
   ca-certificates \
   cairo \
   dbus-x11 \
-  font-dejavu \
-  font-misc-misc \
+  font-noto \
+  font-noto-arabic \
+  font-noto-cjk \
+  font-noto-devanagari \
   font-noto-emoji \
-  font-unifont \
-  font-wqy-zenhei \
+  font-noto-hebrew \
   gst-plugins-bad \
   gst-plugins-base \
   gst-plugins-good \
@@ -177,16 +178,19 @@ RUN \
   libxrandr \
   libxtst \
   libxv \
+  musl-locales \
   opus \
   pulseaudio \
-  pulseaudio-utils \
+  rofi \
+  setxkbmap \
+  sxhkd \
   tzdata \
   xclip \
   xdotool \
-  xf86-input-evdev \
   xf86-input-libinput \
   xf86-video-dummy \
   xorg-server \
+  xterm \
   ;
 
 LABEL net.m1k1o.neko.api-version=3

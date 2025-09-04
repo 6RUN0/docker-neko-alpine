@@ -16,6 +16,8 @@ x-build: &build
   build:
     context: .
     dockerfile: ./Dockerfile
+    tags:
+      - neko-alpine:latest
 
 services:
   neko:
@@ -30,18 +32,8 @@ services:
       - "8080:8080"
       - "52000-52100:52000-52100/udp"
     environment:
+      NEKO_WEBRTC_EPR: 52000-52100
       NEKO_DESKTOP_SCREEN: 1920x1080@30
       NEKO_MEMBER_MULTIUSER_USER_PASSWORD: neko
       NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
-      NEKO_WEBRTC_EPR: 52000-52100
-      NEKO_DEBUG: 1
-      NEKO_MEMBER_PROVIDER: multiuser
-      NEKO_SESSION_COOKIE_SECURE: 0
-      NEKO_WEBRTC_ICELITE: 0
-      NEKO_WEBRTC_LEGACY: 0
-      NEKO_SERVER_PROXY: 0
-      NEKO_SERVER_BIND: 0.0.0.0:8080
-      NEKO_SERVER_PUBLIC_ADDRESS: http://localhost:8080
-      NEKO_WEBRTC_CANDIDATE_TYPES: host
-      NEKO_WEBRTC_ICESERVERS_FRONTEND: "[]"
-      NEKO_WEBRTC_ICESERVERS_BACKEND: "[]"
+      NEKO_WEBRTC_NAT1TO1: 127.0.0.1
