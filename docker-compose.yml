@@ -19,12 +19,20 @@ x-build: &build
     tags:
       - neko-alpine:latest
 
+x-healthcheck-neko: &healthcheck-neko
+  healthcheck:
+    test: ["CMD", "neko-healthcheck"]
+    interval: 10s
+    timeout: 5s
+    retries: 8
+
 services:
   neko:
     <<:
       #- *logging-systemd
       #- *logging-loki
       - *build
+      - *healthcheck-neko
     container_name: neko
     hostname: neko
     shm_size: "2gb"

@@ -5,14 +5,15 @@ with-contenv
 importas -i -S X_NEKO_DISPLAY
 importas -i -S X_NEKO_USER
 importas -i -S X_NEKO_USER_HOME
-importas -i -S X_NEKO_USER_SHELL
+importas -i -S X_NEKO_RUNTIME_DIR
 
-export DISPLAY ${X_NEKO_DISPLAY}
-export HOME ${X_NEKO_USER_HOME}
-export SHELL ${X_NEKO_USER_SHELL}
+foreground { mkdir -p -m 1777 ${SOCKET_DIR} }
+
 export USER ${X_NEKO_USER}
-export XDG_DATA_DIRS /usr/local/share:/usr/share
+export HOME ${X_NEKO_USER_HOME}
+export DISPLAY ${X_NEKO_DISPLAY}
+export XDG_RUNTIME_DIR ${X_NEKO_RUNTIME_DIR}
 
 s6-setuidgid ${X_NEKO_USER}
 cd ${X_NEKO_USER_HOME}
-exec /usr/bin/sxhkd
+exec fluxbox

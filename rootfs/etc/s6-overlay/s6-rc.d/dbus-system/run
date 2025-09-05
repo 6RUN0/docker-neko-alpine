@@ -9,4 +9,4 @@ foreground { mkdir -p -m 755 ${RUNDIR} }
 foreground { chown ${USER}:${GROUP} ${RUNDIR} }
 foreground { /usr/bin/dbus-uuidgen --ensure=${MACHINE_ID} }
 
-exec /usr/bin/dbus-daemon --system --nofork --nopidfile
+exec dbus-daemon --system --nofork --nopidfile

@@ -16,5 +16,5 @@ export HOME ${X_NEKO_USER_HOME}
 export DISPLAY ${X_NEKO_DISPLAY}
 
 s6-setuidgid ${X_NEKO_USER}
-
+cd ${X_NEKO_USER_HOME}
 exec /usr/libexec/Xorg ${X_NEKO_DISPLAY} -config ${CONFIG} -noreset -nolisten tcp

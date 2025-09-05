@@ -159,6 +159,7 @@ RUN \
   ca-certificates \
   cairo \
   dbus-x11 \
+  fluxbox \
   font-noto \
   font-noto-arabic \
   font-noto-cjk \
@@ -181,9 +182,7 @@ RUN \
   musl-locales \
   opus \
   pulseaudio \
-  rofi \
   setxkbmap \
-  sxhkd \
   tzdata \
   xclip \
   xdotool \

@@ -15,5 +15,5 @@ export DISPLAY ${X_NEKO_DISPLAY}
 export XDG_RUNTIME_DIR ${X_NEKO_RUNTIME_DIR}
 
 s6-setuidgid ${X_NEKO_USER}
-
-exec /usr/bin/pulseaudio --log-level=error --disallow-module-loading --disallow-exit --exit-idle-time=-1
+cd ${X_NEKO_USER_HOME}
+exec pulseaudio --log-level=error --disallow-module-loading --disallow-exit --exit-idle-time=-1
