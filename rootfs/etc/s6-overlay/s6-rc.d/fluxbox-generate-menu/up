@@ -1,0 +1,13 @@
+#!/command/execlineb -P
+
+with-contenv
+
+importas -i -S X_NEKO_USER
+importas -i -S X_NEKO_USER_HOME
+
+export USER ${X_NEKO_USER}
+export HOME ${X_NEKO_USER_HOME}
+
+s6-setuidgid ${X_NEKO_USER}
+cd ${X_NEKO_USER_HOME}
+fluxbox-generate_menu
