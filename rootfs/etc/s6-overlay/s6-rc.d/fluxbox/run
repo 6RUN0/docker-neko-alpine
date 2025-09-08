@@ -16,4 +16,4 @@ export XDG_RUNTIME_DIR ${X_NEKO_RUNTIME_DIR}
 
 s6-setuidgid ${X_NEKO_USER}
 cd ${X_NEKO_USER_HOME}
-exec fluxbox
+exec fluxbox -no-toolbar -no-slit
