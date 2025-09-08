@@ -180,6 +180,7 @@ RUN \
   libxtst \
   libxv \
   musl-locales \
+  musl-locales-lang \
   opus \
   pulseaudio \
   setxkbmap \
